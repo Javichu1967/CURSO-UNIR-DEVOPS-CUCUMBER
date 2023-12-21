@@ -6,29 +6,24 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selenide.screenshot;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.disappear;
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class GoogleSearchStepDefinitions {
-  static boolean cookieBannerAccepted = false;	
+  static boolean primerRetraso = false;	
 	
   @Given("an open browser with google.com")
   public void openGoogleSearch() {
     Configuration.reportsFolder = "target/surefire-reports";
-    open("https://google.es/");
-
-	if (!cookieBannerAccepted)
+    open("https://google.com/ncr");
+	
+	// RETRASO PARA QUE ME DÉ TIEMPO A SUBIR LA PANTALLA AL OTRO MONITOR
+	if (!primerRetraso)
 	{
-		try{Thread.sleep(3000);}catch(Exception e){}
-		$(byText("Accept all")).click();
-		try{Thread.sleep(100);}catch(Exception e){}
-		$(byText("Accept all")).should(disappear);
-		try{Thread.sleep(100);}catch(Exception e){}
-		cookieBannerAccepted = true;
+		primerRetraso = true;
+		try { Thread.sleep(5000); } catch(Exception e) {}
 	}
   }
 
